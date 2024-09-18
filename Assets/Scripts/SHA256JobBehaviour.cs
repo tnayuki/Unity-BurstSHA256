@@ -3,7 +3,7 @@ using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
 using Stopwatch = System.Diagnostics.Stopwatch;
-using File = System.IO.File;
+using FileInfo = System.IO.FileInfo;
 using TimeSpan = System.TimeSpan;
 
 public class SHA256JobBehaviour : MonoBehaviour {
@@ -219,7 +219,9 @@ public class SHA256JobBehaviour : MonoBehaviour {
         stopWatch.Start();
 
         var mmf = new NativeMemoryMappedFile<byte>(Application.streamingAssetsPath + "/data");
-        data = mmf.AsArray();
+
+        // Capacity of memory mapped file will be multiple of page size, so truncate
+        data = mmf.AsArray().GetSubArray(0, (int)new FileInfo(Application.streamingAssetsPath + "/data").Length);
 
         hash = new NativeArray<byte>(32, Allocator.Persistent);
 
