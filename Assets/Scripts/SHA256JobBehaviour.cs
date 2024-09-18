@@ -163,6 +163,9 @@ public class SHA256JobBehaviour : MonoBehaviour {
                         data[i++] = 0x00;
 
                     Transform();
+
+                    for (i = 0; i < 56;)
+                        data[i++] = 0x00;
                 }
 
                 bitlen += (ulong)datalen * 8;

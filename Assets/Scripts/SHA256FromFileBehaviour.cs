@@ -163,6 +163,9 @@ public class SHA256FromFileBehaviour : MonoBehaviour {
                     instance->data[i++] = 0x00;
 
                 Transform(instance);
+
+                for (i = 0; i < 56;)
+                    instance->data[i++] = 0x00;
             }
 
             instance->bitlen += (ulong)instance->datalen * 8;
